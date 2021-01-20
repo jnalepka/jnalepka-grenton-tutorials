@@ -4,4 +4,4 @@ W tym miejscu znajdziesz różne ciekawe przykłady integracji z systemem Grento
 
 ## Integracje:
 
-[Denon Heos & Grenton](/DenonHeos_NodeRed_Grenton/denongeos_nodered-grenton.pdf)
+[Denon Heos & Grenton](DenonHeos_NodeRed_Grenton/denonheos_nodered-grenton.pdf)
