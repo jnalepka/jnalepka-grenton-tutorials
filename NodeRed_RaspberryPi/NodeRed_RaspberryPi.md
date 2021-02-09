@@ -29,5 +29,3 @@ wyłączenie autostartu za pomocą polecenia
 1. Edytor jest dostępny teraz przez przeglądarkę http://<adres_hosta>:1880
 
 Szczegóły instalacji na RPi i innych platformach w dokumentacji Node-Red https://nodered.org/docs/getting-started/
-
-**Scenariusz**: Wysłanie zdarzenia OnClick z Smart Panelu do Node-Red i zmiana stanu pierwszego wyjścia relay przez Node Red.
