@@ -1,6 +1,6 @@
 ### DENON HEOS & Grenton
 
-Gdy mamy działający Node-Red to w prosty sposób możemy kontrolować urządzenia audio Denon Heos, które do komunikacji wykorzystują połączenie telnet. O tym jak zainstalować i skonfigurować Node-Red z Grenton można dowiedzieć się z tutorialu "NodeRed_Grenton".
+Gdy mamy działający Node-Red to w prosty sposób możemy kontrolować urządzenia audio Denon Heos, które do komunikacji wykorzystują połączenie telnet. O tym jak zainstalować Node-Red na Raspberry Pi można dowiedzieć się z tutorialu [NodeRed_RaspberryPi](https://github.com/jnalepka/GrentonTutorials/blob/main/NodeRed_RaspberryPi/NodeRed_RaspberryPi.pdf).
 
 Szczegółowe informacje odnośnie komunikacji z urządzeniami Heos można znaleźć pod adresem: [HEOS_CLI_ProtocolSpecification-Version.pdf (dmglobal.com)](http://rn.dmglobal.com/usmodel/HEOS_CLI_ProtocolSpecification-Version.pdf)
 
