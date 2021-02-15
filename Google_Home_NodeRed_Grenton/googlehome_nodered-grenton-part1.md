@@ -142,7 +142,7 @@ Dla wskazanego modułu Gate Http należy utworzyć obiekt wirtualny HttpListener
 
 Następnie w obiekcie GATE HTTP należy utworzyć skrypt, w którym podejmowana będzie dla otrzymanego zapytania, przykładowo:
 
-```
+```lua
 local reqJson = GATE_HTTP->GoogleHome_Listener->QueryStringParams
 
 if reqJson ~= nil then
@@ -246,7 +246,7 @@ Dla modułu Gate Http należy utworzyć obiekt wirtualny HttpRequest:
 
 Następnie w obiekcie GATE HTTP należy utworzyć skrypt, za pomocą którego aktualny stan danego urządzenia będzie wysyłany do Node-Red, przykładowo:
 
-```
+```lua
 local eventJson = {
 		module = module,
 		state = state
