@@ -102,7 +102,6 @@ Ustawienia obiektu `HttpRequest`:
 - `Host` - należy ustawić adres ip oraz port dla połączenia z Node-Red,
 - `Path` - ścieżka zapytania, przykładowo ```/grenton/event```,
 - `Method` - należy ustawić ```POST```,
-- `Timeout` - należy ustawić wartość możliwie najkrótszą, aby możliwe było szybsze wywoływanie komend po sobie - optymalnie 1s,
 - `RequestType` oraz `ResponseType` - należy ustawić na JSON.
 
 ![](img9.png)
@@ -130,6 +129,7 @@ Wywołanie skryptu może odbywać się za pomocą zdarzenia wybranego obiektu sy
 Do konfiguracji posłużą bloki:
 
 * "http in" - do komunikacji z GateHttp,
+* "http response" - do wysłania odpowiedzi do GateHttp o poprawnej komunikacji,
 * "switch" - do rozróżnienia polecenia wysłanego z systemu Grenton,
 * "function" - aby ustawić komendę do wysłania,
 * "tcp out" - aby przesłać komendę do urządzenia Denon Heos.
@@ -144,6 +144,14 @@ Konfiguracja bloku "http in":
 * `URL`  - należy ustawić na ścieżkę zapytania taką jak w obiekcie `HttpRequest`.
 
 ![](img11.png)
+
+
+
+Konfiguracja bloku "http response":
+
+* `Status code` - należy ustawić przykładowo na 202.
+
+![](img20.png)
 
 
 
@@ -572,6 +580,3 @@ Po dokonaniu integracji muzykę można kontrolować w wygodny sposób przykłado
 <img src="img19.png" width=350>
 
 
-
-> **UWAGA!**
-> Przyciski można wciskać w interwale 1 sekundy, aby została wykonana komenda. Wynika to z parametru `Timeout` obiektu `HttpRequest`, który jest oczekiwaniem na odpowiedź, a jego minimalna wartość wynosi 1.
