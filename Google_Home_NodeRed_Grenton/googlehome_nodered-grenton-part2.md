@@ -709,22 +709,16 @@ a) Set values  - przesłanie informacji o aktualnej temperaturze oraz o ustawion
 
 ```lua
 state = msg.payload.state;
-if (state != 0){
-    msg.payload = {
-        command: "action.devices.commands.OnOff",
-        params: {
-            on: true
-        }
-    };
-}
-else{
-    msg.payload = {
-        command: "action.devices.commands.OnOff",
-        params: {
-            on: false
-        }
-    };
-}
+val = msg.payload.value;
+
+msg.payload = {
+    command: "action.devices.commands.ThermostatTemperatureSetpoint",
+    params: {
+        thermostatTemperatureSetpoint: state,
+        thermostatTemperatureAmbient: val
+    }
+};
+
 return msg;
 ```
 
