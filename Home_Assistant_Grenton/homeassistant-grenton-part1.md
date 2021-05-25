@@ -165,8 +165,8 @@ if reqJson ~= nil then
 		elseif reqJson.state == "off" then
 			CLUZ->DIMMER->SwitchOff(0)
 		else
-			GATE_HTTP->lamp_value = reqJson.value/255
-			CLUZ->DIMMER->SetValue(GATE_HTTP->lamp_value)
+			GATE_HTTP->lamp1_value = reqJson.value/255
+			CLUZ->DIMMER->SetValue(GATE_HTTP->lamp1_value)
 		end
 		resp = { Result = "OK" }
 		code = 200
