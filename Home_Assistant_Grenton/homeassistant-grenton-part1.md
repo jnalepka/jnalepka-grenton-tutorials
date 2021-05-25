@@ -165,7 +165,8 @@ if reqJson ~= nil then
 		elseif reqJson.state == "off" then
 			CLUZ->DIMMER->SwitchOff(0)
 		else
-			CLUZ->DIMMER->SetValue(tonumber(reqJson.value)/255)
+            GATE_HTTP->lamp_value = reqJson.value/255
+        	CLUZ->DIMMER->SetValue(GATE_HTTP->lamp_value)
 		end
 		resp = { Result = "OK" }
 		code = 200
@@ -189,11 +190,18 @@ GATE_HTTP->HA_Listener->SendResponse()
 
 Do skryptu należy dodać parametry `code`(number) i `resp`(string).
 
-> Dla linijki:
+> Dla linijek:
+>
+> `GATE_HTTP->lamp_value = reqJson.value)/255
+>  CLUZ->DIMMER->SetValue(GATE_HTTP->lamp_value)`
+>
+> Wartość value (wartość jasności ustawiona za pomocą suwaka w HA) jest zapisywana w zmiennej użytkownika (aby umożliwić operacje pomiędzy dwoma CLU) oraz podzielona przez 255, aby zmienić zakres z 0-255 na 0-1. 
+
+> W przyszłości możliwe będzie zamienienie obu powyższych linijek na jedną, bez użycia zmiennej globalnej:
 >
 > `CLUZ->DIMMER->SetValue(tonumber(reqJson.value)/255)`
-> 
->Wartość value (wartość jasności ustawiona za pomocą suwaka w HA) jest zamieniana na wartość liczbową, a następnie podzielona przez 255, aby zmienić zakres z 0-255 na 0-1. 
+>
+> Aktualnie jednak użycie cechy użytkownika jest niezbędne.
 
 
 
