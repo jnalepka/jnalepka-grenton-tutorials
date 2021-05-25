@@ -63,7 +63,7 @@ light:
         set_level:
           service: rest_command.livingroom_light_value
           data:
-            brightness: "{{ brightness }}"
+            livingroom_light_brightness: "{{ brightness }}"
 ```
 
 
@@ -118,7 +118,7 @@ rest_command:
     url: http://192.168.0.252/HAlistener
     method: post
     content_type: "application/json"
-    payload: '{"object":"lamp1", "state":"{{ brightness }}" }'
+    payload: '{"object":"lamp1", "value":"{{ livingroom_light_brightness }}" }'
 
 ```
 
@@ -165,9 +165,7 @@ if reqJson ~= nil then
 		elseif reqJson.state == "off" then
 			CLUZ->DIMMER->SwitchOff(0)
 		else
-			GATE_HTTP->lamp1_value = reqJson.state/255
-			CLUZ->DIMMER->SetValue(GATE_HTTP->lamp1_value)
-			print("Value from HA: "..reqJson.state)
+			CLUZ->DIMMER->SetValue(tonumber(reqJson.value)/255)
 		end
 		resp = { Result = "OK" }
 		code = 200
@@ -191,12 +189,11 @@ GATE_HTTP->HA_Listener->SendResponse()
 
 Do skryptu należy dodać parametry `code`(number) i `resp`(string).
 
-> Dla linijek:
+> Dla linijki:
 >
-> `GATE_HTTP->lamp1_value = reqJson.state/255`
-> `CLUZ->DIMMER->SetValue(GATE_HTTP->lamp1_value)`
->
-> Wartość value (wartość jasności ustawiona za pomocą suwaka w HA) jest podzielona przez 255, aby zmienić zakres z 0-255 na 0-1. Wartość zapisana jest jako cecha użytkownika, następnie wykorzystana do ustawienia jasności dla obiektu DIMMER.
+> `CLUZ->DIMMER->SetValue(tonumber(reqJson.value)/255)`
+> 
+>Wartość value (wartość jasności ustawiona za pomocą suwaka w HA) jest zamieniana na wartość liczbową, a następnie podzielona przez 255, aby zmienić zakres z 0-255 na 0-1. 
 
 
 
