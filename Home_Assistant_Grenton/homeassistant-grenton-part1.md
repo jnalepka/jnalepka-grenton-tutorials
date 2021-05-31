@@ -8,6 +8,14 @@ W pierwszej części tutorialu przedstawiony został przykład sterowania Lampą
 
 
 
+>  Przedstawiona konfiguracja została wykonana na:
+>
+>  * CLUZ w wersji `5.07.01 (build 2108)`, 
+>  * OM w wersji `v1.4.0 (build 2106)`, 
+>  * Home Assistant w wersji `2021.5.5`.
+
+
+
 ##### 1. Pierwsze kroki
 
 Po zakończeniu konfiguracji konta na ekranie pojawi się widok panelu Home Assistant.
@@ -165,7 +173,7 @@ if reqJson ~= nil then
 		elseif reqJson.state == "off" then
 			CLUZ->DIMMER->SwitchOff(0)
 		else
-			GATE_HTTP->lamp1_value = reqJson.value/255
+			GATE_HTTP->lamp1_value = tonumber(reqJson.value/255)
 			CLUZ->DIMMER->SetValue(GATE_HTTP->lamp1_value)
 		end
 		resp = { Result = "OK" }
@@ -192,7 +200,7 @@ Do skryptu należy dodać parametry `code`(number) i `resp`(string).
 
 > Dla linijek:
 >
-> `GATE_HTTP->lamp_value = reqJson.value)/255
+> `GATE_HTTP->lamp1_value = tonumber(reqJson.value/255)
 >  CLUZ->DIMMER->SetValue(GATE_HTTP->lamp_value)`
 >
 > Wartość value (wartość jasności ustawiona za pomocą suwaka w HA) jest zapisywana w zmiennej użytkownika (aby umożliwić operacje pomiędzy dwoma CLU) oraz podzielona przez 255, aby zmienić zakres z 0-255 na 0-1. 
@@ -237,7 +245,9 @@ if module == "lamp1" then
 		val = val * 255;
 		eventJson = {
 		state = "on",
-		attributes = { 
+		attributes = {
+			supported_color_modes = {"brightness"},
+			color_mode = "brightness",
 			brightness = val,
 			friendly_name = "Lampa",
 			supported_features = 1
@@ -247,6 +257,8 @@ if module == "lamp1" then
 		eventJson = {
 		state = "off",
 		attributes = { 
+			supported_color_modes = {"brightness"},
+			color_mode = "brightness",
 			brightness = 0,
 			friendly_name = "Lampa",
 			supported_features = 1
@@ -283,15 +295,27 @@ Do skryptu należy dodać parametry:
 >
 > Wartość value DIMMERA pomnożona przez 255, aby uzyskać zakres 0-255.
 >
-> ```
-> attributes = { 
+> ```yaml
+> attributes = {
+> 			supported_color_modes = {"brightness"},
+> 			color_mode = "brightness",
 > 			brightness = val,
 > 			friendly_name = "Lampa",
 > 			supported_features = 1
 > 			}
 > ```
 >
-> Jako, że podczas aktualizacji stanu Home Assistant pozostałe atrybuty zostają również zaktualizowane, należy umieścić je również w skrypcie, aby nie zostały usunięte podczas aktualizacji.
+> Jako, że podczas aktualizacji stanu Home Assistant pozostałe atrybuty zostają również zaktualizowane, należy umieścić je również w skrypcie, aby nie zostały usunięte podczas aktualizacji. W przeciwnym razie sterowanie z poziomu HA może zostać ograniczone lub zablokowane.
+>
+> W Home Assistant trybuty encji można sprawdzić w bieżących encjach narzędzi deweloperskich:
+>
+> ![](img14_B.png)
+>
+> UWAGA! Po kliknięciu w daną encję u samej góry wyświetlą się dokładne wartości atrybutów:
+>
+> ![](img14_C.png)
+>
+> Jak widać `- brightness` jest to element `supported_color_modes`, zatem w skrypcie musi być umieszczony w ten sposób: `supported_color_modes = {"brightness"}`
 
 
 
