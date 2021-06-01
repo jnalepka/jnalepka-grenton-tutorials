@@ -21,7 +21,7 @@ Przedstawiona konfiguracja umożliwia sterowanie głosowe za pomocą Asystenta G
 > * Roller Shutter DIN w wersji `2.1.2`, 
 > * Home Assistant w wersji `2021.5.5`.
 
-> Do edycji plików yaml w Home Asistant polecam dodatek "Visual Studio Code", który dodatkowo pokazuje podpowiedzi bądź błędy konfiguracyjne.
+> Do edycji plików yaml w Home Assistant polecam dodatek "Visual Studio Code", który dodatkowo pokazuje podpowiedzi bądź błędy konfiguracyjne.
 
 
 
