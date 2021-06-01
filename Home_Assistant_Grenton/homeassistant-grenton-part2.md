@@ -1032,15 +1032,11 @@ Po ponownym uruchomieniu serwera HA, w domyślnym dashboardzie powinien pojawić
 Do stworzonego wcześniej skryptu podpiętego pod zdarzenie `OnRequest` obiektu `HttpListener` należy dopisać:
 
 ```lua
-elseif module == "temp_sensor1" then
-	path = "/api/states/sensor.livingroom_temperature_sensor"
-		eventJson = {
-		state = val,
-		attributes = {
-			friendly_name = "Czujnik temperatury",
-			device_class = "temperature"
-			}
-		}
+	elseif reqJson.object == "script1" then
+		CLUZ->Romantycznie()
+		
+		resp = { Result = "OK" }
+		code = 200
 ```
 
 
