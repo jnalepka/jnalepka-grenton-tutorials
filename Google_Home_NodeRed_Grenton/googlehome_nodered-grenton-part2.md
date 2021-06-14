@@ -818,6 +818,8 @@ Dla zdarzenia `OnValueChange` obiektu mierzącego temperaturę (wejście termost
 
 ![](img42.png)
 
+> WAŻNE! Dla obiektu mierzącego temperaturę należy ustawić parametr `Treshhold` lub `Sensitivity` na wartość większą niż 0.5, aby zdarzenia nie generowały się zbyt często.
+
 
 
 Dla zdarzenia `OnChange` obiektu TERMOSTAT należy odpowiednio ustawić parametry skryptu, np.`module=="Thermostat"`,  `state==TERMOSTAT_1->TargetTemp` i `value==CLUZ->ONEW_SENSOR->Value`.
