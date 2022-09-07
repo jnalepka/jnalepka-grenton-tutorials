@@ -1,38 +1,36 @@
 ### Home Assistant & Grenton cz. 1
 
-W tym tutorialu przedstawiona została integracja Home Assistant z systemem Grenton za pomocą RESTful API, oraz sterowanie urządzeniem Grenton za pomocą Google Home / Asystent Google.
+This tutorial presents the integration of Home Assistant with Grenton using RESTful API and controlling the device using Google Home / Google Assistant.
 
-Szczegółowe informacje jak zainstalować Home Assistant na różnych platformach można znaleźć na stronie: https://www.home-assistant.io/installation/.
+For detailed information on how to install Home Assistant on different platforms, please visit:  https://www.home-assistant.io/installation/.
 
-W pierwszej części tutorialu przedstawiony został przykład sterowania Lampą (DIMMER DIN) za pomocą Home Assistant, Google Home oraz Asystenta Google.
+The first part of the tutorial presents an example of controlling a Lamp (DIMMER DIN) in the Grenton system using Home Assistant, Google Home and Google Assistant.
 
 
 
->  Przedstawiona konfiguracja została wykonana na:
+>  The presented configuration was performed on:
 >
->  * GATE HTTP w wersji `1.1.11 (build 2218B)`, 
->  * OM w wersji `v1.7.0 (build 2220)`, 
->  * Home Assistant w wersji `2022.8.7`.
+>  * CLUZ version `5.07.01 (build 2108)`, 
+>  * OM version `v1.4.0 (build 2106)`, 
+>  * Home Assistant version `2021.5.5`.
 
 
 
-##### 1. Pierwsze kroki
+##### 1. First steps
 
-Po zakończeniu konfiguracji konta na ekranie pojawi się widok panelu Home Assistant.
+Once the account setup is complete, the Home Assistant panel view will appear on the screen.
 
-W pierwszej kolejności należy zainstalować dodatek, który ułatwi edytowanie plików `yaml`.  Aby to zrobić należy przejść do zakładki `Ustawienia` następnie otworzyć `Dodatki`.  Po wybraniu `Sklep z dodatkami` należy odnaleźć i wybrać `Studio Code Server` (alternatywą może być podstawowy File Editor).
+W pierwszej kolejności należy zainstalować dodatek, który ułatwi edytowanie plików `yaml`.  Aby to zrobić należy przejść do zakładki `Supervisor` następnie otworzyć `Add-on Store`.  W pozycji `Official add-ons` należy odnaleźć i wybrać `File editor`.
 
-![](img51.png)
+![](img2.png)
 
-Należy kliknąć `ZAINSTALUJ`, następnie zaznaczyć opcję `Pokaż na pasku bocznym` oraz uruchomić przyciskiem `URUCHOM`.
+Należy kliknąć `INSTALL`, następnie zaznaczyć opcję `Show in sidebar` oraz uruchomić przyciskiem `START`.
 
-> Jeśli będą występować problemy z zainstalowaniem dodatku, można spróbować uruchomić `ha supervisor repair` w terminalu.
-
-![](img52.png)
+![](img3.png)
 
 
 
-Kolejnym krokiem będzie utworzenie długoterminowego tokenu dostępu, umożliwiającego komunikację z Home Assistantem. Aby utworzyć token należy przejść do profilu i  w polu `Tokeny dostępu` wybrać `UTWÓRZ TOKEN` oraz nadać mu nazwę.
+Kolejnym krokiem będzie utworzenie długoterminowego tokenu dostępu, umożliwiającego komunikację z Home Assistantem. Aby utworzyć token należy przejść do profilu i wybrać `UTWÓRZ TOKEN` oraz nadać mu nazwę.
 
 ![](img4.png)
 
@@ -51,9 +49,9 @@ Ostatnim krokiem będzie włączenie trybu zaawansowanego, który odblokuje doda
 
 ##### 2. Konfiguracja szablonu obiektu w Home Assistant
 
-Aby dodać szablon, za pomocą którego będziemy mogli kontrolować obiekt, należy otworzyć `Studio Code Server` a następnie wybrać plik `configuration.yaml`.
+Aby dodać szablon, za pomocą którego będziemy mogli kontrolować obiekt, należy otworzyć `File editor` a następnie wybrać plik `configuration.yaml`.
 
-![](img53.png)
+![](img5.png)
 
 
 
@@ -82,19 +80,27 @@ light:
 
 > Komendy `rest_command.livingroom_light...` zostaną skonfigurowane w dalszych krokach.
 
-Aby obiekt został dodany, należy zapisać zmiany w pliku i uruchomić ponownie serwer Home Assistant. Aby to zrobić należy przejść do zakładki `Narzędzia deweloperskie` i w zakładce `YAML` wybrać `SPRAWDŹ KONFIGURACJĘ`. Jeśli konfiguracja jest prawidłowa można uruchomić ponownie serwer za pomocą przycisku `URUCHOM PONOWNIE`.
+Aby obiekt został dodany, należy zapisać zmiany w pliku i uruchomić ponownie serwer Home Assistant. Aby to zrobić należy przejść do zakładki `Konfiguracja`, następnie `Kontrola serwera` i `Sprawdź konfigurację`. Jeśli konfiguracja jest prawidłowa można uruchomić ponownie serwer.
 ![](img7.png)
 
 
 
-Po ponownym uruchomieniu serwera można sprawdzić, czy Encja została prawidłowo dodana. W tym celu należy przejść do zakładki `Narzędzia deweloperskie` i otworzyć kartę `STANY`. W polu bieżących encji powinien pojawić się nowy obiekt `light.livingroom_light`.
-![](img54.png)
+Po ponownym uruchomieniu serwera można sprawdzić, czy Encja została prawidłowo dodana. W tym celu należy przejść do zakładki `Narzędzia deweloperskie` i otworzyć kartę `STANY`. W polu bieżących encji powinien pojawić się nowy obiekt "light.livingroom_light".
+![](img8.png)
 
 
 
-Stworzony obiekt powinien pojawić się na pulpicie sterowania. 
+Stworzony obiekt można umieścić w dowolnym Pulpicie w dowolny sposób. Przykładowo można stworzyć nowy Dashboard (Pulpit) w `Konfiguracja` -> `Dashboardy`, a następnie ustawić go jako jako domyślny.
 
-![](img55.png)
+![](img9.png)
+
+
+
+Po wybraniu Pulpitu należy przejść do jego edycji:
+![](img10.png)
+
+W tym miejscu można dodać obiekt w dowolny sposób, przykładowo:
+![](img11.png)
 
 
 
@@ -124,9 +130,9 @@ rest_command:
 
 ```
 
-> W polu `url` należy wpisać adres IP modułu GATE HTTP wraz ze ścieżką zapytania, przykładowo `/HA_Listener`.
+> W polu `url` należy wpisać adres IP modułu GATE HTTP wraz ze ścieżką zapytania dla obiektu Http_Listener.
 
-> Parametry "object", "state" lub "value" są przykładowe i mogą być definiowane dowolnie. Obiekt Lampy przykładowo będzie identyfikowany w systemie Grenton jako "lamp1".
+> Przykładowo Lampa będzie identyfikowana w systemie Grenton jako "lamp1".
 
 
 
@@ -136,10 +142,10 @@ Aby zmiany zostały dodane, należy zapisać zmiany w pliku i uruchomić ponowni
 
 ###### 3.2. Konfiguracja w Grenton
 
-W pierwszej kolejności można stworzyć dwie cechy użytkownika na GATE_HTTP:
+W pierwszej kolejności można stworzyć dwie cechy użytkownika na Gate Http:
 
 * `ha_api` - przechowującą utworzony na początku token,
-* `lamp1_value` - zmienną pomocniczą do ustawiania jasności lampy.
+* `lamp1_value` - zmienną globalną pomocną do ustawiania jasności lampy.
 
 ![](img12.png)
 
@@ -147,7 +153,7 @@ W pierwszej kolejności można stworzyć dwie cechy użytkownika na GATE_HTTP:
 
 Następnie należy utworzyć obiekt wirtualny `HttpListener` oraz skonfigurować go w następujący sposób:
 
-* `Path` - ścieżka zgodna ze wcześniej ustawioną ścieżką zapytania, np. `/HAlistener`,
+* `Path` - ścieżka zgodna ze ścieżką ustawioną w HA, np. "/HAlistener",
 * `ResponseType` - ustawić na `JSON`.
 
 ![](img13.png)
@@ -158,11 +164,10 @@ Do zdarzenia `OnRequest` obiektu `HttpListener` należy przypisać skrypt, któr
 
 ```lua
 local reqJson = GATE_HTTP->HA_Listener->RequestBody
-local code, resp
 
 if reqJson ~= nil then
 ---------------------------------------------------
-	if reqJson.object == "lamp1" then -- jeśli rozpoznano obiekt lamp1
+	if reqJson.object == "lamp1" then
 		if reqJson.state == "on" then
 			CLUZ->DIMMER->SwitchOn(0)
 		elseif reqJson.state == "off" then
@@ -173,17 +178,16 @@ if reqJson ~= nil then
 		end
 		resp = { Result = "OK" }
 		code = 200
-        
-  --elseif ... -- kod można rozbudować o kolejne obiekty
+		
 		
 ---------------------------------------------------		
-	else -- jeśli nie rozpoznano żadnego obiektu
+	else
 		resp = { Result = "Not Found" }
 		code = 401
 	end
 ---------------------------------------------------
-else -- jeśli zawartość jest pusta
-	resp = { Result = "Error" }
+else
+	resp = { Result = "Not Found" }
 	code = 404
 end
 
@@ -192,14 +196,20 @@ GATE_HTTP->HA_Listener->SetResponseBody(resp)
 GATE_HTTP->HA_Listener->SendResponse()
 ```
 
-
+Do skryptu należy dodać parametry `code`(number) i `resp`(string).
 
 > Dla linijek:
 >
 > `GATE_HTTP->lamp1_value = tonumber(reqJson.value/255)
 >  CLUZ->DIMMER->SetValue(GATE_HTTP->lamp_value)`
 >
-> Wartość `value` (wartość jasności ustawiona za pomocą suwaka w HA) jest zapisywana w zmiennej użytkownika (aby umożliwić przekazanie zmiennej ze skryptu do innego CLU) oraz podzielona przez 255, aby zmienić zakres z 0-255 na 0-1. 
+> Wartość value (wartość jasności ustawiona za pomocą suwaka w HA) jest zapisywana w zmiennej użytkownika (aby umożliwić operacje pomiędzy dwoma CLU) oraz podzielona przez 255, aby zmienić zakres z 0-255 na 0-1. 
+
+> W przyszłości możliwe będzie zamienienie obu powyższych linijek na jedną, bez użycia zmiennej globalnej:
+>
+> `CLUZ->DIMMER->SetValue(tonumber(reqJson.value)/255)`
+>
+> Aktualnie jednak użycie cechy użytkownika jest niezbędne.
 
 
 
@@ -229,7 +239,7 @@ local method = "POST"
 local path
 local eventJson
 
-if module == "lamp1" then -- jeśli dotyczy obiektu lamp1
+if module == "lamp1" then
 	path = "/api/states/light.livingroom_light"
 	if CLUZ->DIMMER->Value > 0 then
 		val = val * 255;
@@ -238,7 +248,7 @@ if module == "lamp1" then -- jeśli dotyczy obiektu lamp1
 		attributes = {
 			supported_color_modes = {"brightness"},
 			color_mode = "brightness",
-			brightness = val, -- tutaj wprowadzana jest dokładna wartość jasności
+			brightness = val,
 			friendly_name = "Lampa",
 			supported_features = 1
 			}
@@ -255,10 +265,9 @@ if module == "lamp1" then -- jeśli dotyczy obiektu lamp1
 			}
 		}
 	end
-    
---elseif ... -- kod można rozbudować o kolejne obiekty
 ---------------------------------------------------------
 end
+
 
 GATE_HTTP->HA_SendStatus->SetRequestHeaders(reqHeaders)
 GATE_HTTP->HA_SendStatus->SetPath(path)
@@ -296,7 +305,7 @@ Do skryptu należy dodać parametry:
 > 			}
 > ```
 >
-> Jako, że podczas aktualizacji stanu szablonu w Home Assistant wszystkie atrybuty zostają nadpisane, należy umieścić każdy atrybut w skrypcie, aby żaden nie został usunięty podczas aktualizacji. W przeciwnym razie sterowanie z poziomu HA może zostać ograniczone lub zablokowane.
+> Jako, że podczas aktualizacji stanu Home Assistant pozostałe atrybuty zostają również zaktualizowane, należy umieścić je również w skrypcie, aby nie zostały usunięte podczas aktualizacji. W przeciwnym razie sterowanie z poziomu HA może zostać ograniczone lub zablokowane.
 >
 > W Home Assistant trybuty encji można sprawdzić w bieżących encjach narzędzi deweloperskich:
 >
@@ -323,132 +332,11 @@ Po wysłaniu konfiguracji można przetestować, czy zmiany stanu w systemie powo
 
 
 
-###### 3.4. Rozbudowana konfiguracja aktualizacji stanu
-
-> UWAGA! W raz z rozbudową integracji może okazać się, że po zmianie stanu kilku obiektów w Grentonie jednocześnie nie wszystkie zostaną zaktualizowane w HomeAssistant. Dzieje się tak, ponieważ obiekt wirtualny `HttpRequest` może przetworzyć kolejne żądanie dopiero po zakończeniu pierwszego. Można temu zapobiec powiększając liczbę  takich obiektów według poniższej instrukcji.
-
-Aby zminimalizować problem jednoczesnych aktualizacji należy stworzyć więcej obiektów wirtualnych `HttpRequest`. Ilość obiektów może być dowolna.
-
-Przykładowo zostało stworzone 5 obiektów wirtualnych, nazwanych kolejno `HA_SendStatus1`, `HA_SendStatus2`,  `HA_SendStatus3`, `HA_SendStatus4` i  `HA_SendStatus5`.
-
-![](img56.png)
-
-> UWAGA! Należy zwrócić uwagę na to, czy w każdym obiekcie poprawnie zostały ustawione cechy `Host`, `Method`, `RequestType` oraz `ResponseBody`.
-
-
-
-Następnie dla każdego obiektu wirtualnego należy stworzyć cechę użytkownika zapamiętującą jego status, przykładowo `ha_http1_sendstatus`, typ `number`, wartość początkowa `0`.
-
-![](img57.png)
-
-
-
-Do każdego zdarzenia `OnResponse` stworzonych obiektów `HttpRequest` należy ustawić setowanie odpowiedniej zmiennej użytkownika na `0`. Dzięki temu będzie wiadomo, kiedy obiekt zakończy połączenie.
-
-![](img58.png)
-
-
-
-Na koniec należy odpowiednio zmodyfikować skrypt do aktualizacji stanu:
-
-```lua
-local reqHeaders = "Authorization: Bearer "..GATE_HTTP->ha_api
-local method = "POST"
-local path
-local eventJson
-
-if module == "lamp1" then -- jeśli dotyczy obiektu lamp1
-	path = "/api/states/light.livingroom_light"
-	if CLUZ->DIMMER->Value > 0 then
-		val = val * 255;
-		eventJson = {
-		state = "on",
-		attributes = {
-			supported_color_modes = {"brightness"},
-			color_mode = "brightness",
-			brightness = val, -- tutaj wprowadzana jest dokładna wartość jasności
-			friendly_name = "Lampa",
-			supported_features = 1
-			}
-		}
-	else
-		eventJson = {
-		state = "off",
-		attributes = { 
-			supported_color_modes = {"brightness"},
-			color_mode = "brightness",
-			brightness = 0,
-			friendly_name = "Lampa",
-			supported_features = 1
-			}
-		}
-	end
-    
---elseif ... -- kod można rozbudować o kolejne obiekty
----------------------------------------------------------
-end
-
--- sprawdzenie ktory http request jest wolny
-
-if GATE_HTTP->ha_http1_sendstatus == 0 then
-    GATE_HTTP->ha_http1_sendstatus=1
-    GATE_HTTP->HA_SendStatus1->SetRequestHeaders(reqHeaders)
-    GATE_HTTP->HA_SendStatus1->SetPath(path)
-    GATE_HTTP->HA_SendStatus1->SetMethod(method)
-    GATE_HTTP->HA_SendStatus1->SetRequestBody(eventJson)
-    GATE_HTTP->HA_SendStatus1->SendRequest()
-    
-elseif GATE_HTTP->ha_http2_sendstatus == 0 then
-    GATE_HTTP->ha_http2_sendstatus=1
-    GATE_HTTP->HA_SendStatus2->SetRequestHeaders(reqHeaders)
-    GATE_HTTP->HA_SendStatus2->SetPath(path)
-    GATE_HTTP->HA_SendStatus2->SetMethod(method)
-    GATE_HTTP->HA_SendStatus2->SetRequestBody(eventJson)
-    GATE_HTTP->HA_SendStatus2->SendRequest()
-
-elseif GATE_HTTP->ha_http3_sendstatus == 0 then
-    GATE_HTTP->ha_http3_sendstatus=1
-    GATE_HTTP->HA_SendStatus3->SetRequestHeaders(reqHeaders)
-    GATE_HTTP->HA_SendStatus3->SetPath(path)
-    GATE_HTTP->HA_SendStatus3->SetMethod(method)
-    GATE_HTTP->HA_SendStatus3->SetRequestBody(eventJson)
-    GATE_HTTP->HA_SendStatus3->SendRequest()
-
-elseif GATE_HTTP->ha_http4_sendstatus == 0 then
-    GATE_HTTP->ha_http4_sendstatus=1
-    GATE_HTTP->HA_SendStatus4->SetRequestHeaders(reqHeaders)
-    GATE_HTTP->HA_SendStatus4->SetPath(path)
-    GATE_HTTP->HA_SendStatus4->SetMethod(method)
-    GATE_HTTP->HA_SendStatus4->SetRequestBody(eventJson)
-    GATE_HTTP->HA_SendStatus4->SendRequest()
-    
-elseif GATE_HTTP->ha_http5_sendstatus == 0 then
-    GATE_HTTP->ha_http5_sendstatus=1	
-    GATE_HTTP->HA_SendStatus5->SetRequestHeaders(reqHeaders)
-    GATE_HTTP->HA_SendStatus5->SetPath(path)
-    GATE_HTTP->HA_SendStatus5->SetMethod(method)
-    GATE_HTTP->HA_SendStatus5->SetRequestBody(eventJson)
-    GATE_HTTP->HA_SendStatus5->SendRequest()
-
-else
--- error! all http request object busy
-end
-
-```
-
-
-
-Na koniec można przetestować, czy po zmianie stanu kilku obiektów jednocześnie np. za pomocą skryptu wszystkie zostaną zaktualizowane w Home Assistant.
-
-> UWAGA! Dla 5 obiektów wirtualnych `HttpRequest` możliwa będzie aktualizacja maksymalnie 5 obiektów jednocześnie. Można powiększyć ilość obiektów wirtualnych względem własnego uznania.
-
-
-
 ##### 4. Integracja z Google Home / Asystentem Google
 
 Integrację z Google Home dzięki Home Assistant można wykonać na dwa sposoby:
 
-* W prosty sposób wykorzystując Home Assistant Cloud (płatna subskrybcja 7.5$/miesiąc),
+* W prosty sposób wykorzystując Home Assistant Cloud (płatna subskrybcja 5$/miesiąc),
 * Wykonać bezpłatną integrację z Google Home za pomocą Google Cloud API Console.
 
 Szczegółowe informacje można znaleźć bezpośrednio na [Google Assistant - Home Assistant (home-assistant.io)](https://www.home-assistant.io/integrations/google_assistant).
@@ -459,7 +347,7 @@ Szczegółowe informacje można znaleźć bezpośrednio na [Google Assistant - H
 
 Integrację poprzez chmurę Home Assistant można przetestować przez miesiąc za darmo, wystarczy to do przetestowania działania.
 
-W pierwszej kolejności należy utworzyć konto/zalogować się do `Nabu Casa` (Chmura HA). Aby to zrobić należy otworzyć `Ustawienia -> Home Assistant Cloud`.
+W pierwszej kolejności należy utworzyć konto/zalogować się do `Nabu Casa` (Chmura HA). Aby to zrobić należy otworzyć `Konfiguracja -> Home Assistant Cloud`.
 
 Po poprawnym zalogowaniu się należy zaznaczyć `Asystent Google` w konfiguracji poniżej.
 
@@ -513,7 +401,6 @@ lets_encrypt:
   accept_terms: true
   certfile: fullchain.pem
   keyfile: privkey.pem
-  algo: secp384r1
 token: b0cf578f-133d-4598-xxxx <twój token>
 domains:
   - <twoja nazwa>.duckdns.org
@@ -672,72 +559,3 @@ Ostatnim krokiem będzie przejście do [Google API Console](https://console.clou
 
 GOTOWE!
 Można przetestować, czy zmiany stanu w systemie powodują również zmiany stanu w aplikacji Google Home.
-
-
-
-
-
-##### 5. Sterowanie z kafelek szybkich ustawień w Androidzie
-
-Po zainstalowaniu w telefonie z Androidem aplikacji Home Assistant i zalogowaniu się na swoje konto możliwe jest dodanie własnych kafelek szybkich ustawień. Aby to zrobić należy przejść do `Ustawienia` -> `Aplikacja towarzysząca` -> `Szybkie ustawienia/Zarządzaj kafelkami` i skonfigurować do 12 dostępnych kafelek.
-
-
-
-<img src="img60.png" width=350> <img src="img59.png" width=350>
-
-
-
-##### 6. Integracja z HomeKit
-
-W pierwszej kolejności należy otworzyć `Ustawienia`, następnie przejść do zakładki `Urządzenia oraz usługi` i wybrać przycisk w prawym dolnym rogu `+ DODAJ INTEGRACJĘ`.
-
-Należy wyszukać i wybrać `HomeKit`.
-
-W pierwszej kolejności należy wybrać interesujące nas domeny zawierające wspierane encje. Na potrzeby tego tutorialu będzie to `Light`.
-
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img70.png)
-
-
-
-Następnie pojawi się komunikat: Aby dokończyć parowanie, postępuj wg instrukcji „Parowanie HomeKit” w „Powiadomieniach”. - do tego kroku przejdziemy później.
-
-W kolejnym oknie zanim klikniemy `ZAKOŃCZ`, opcjonalnie możemy przypisać obszar, do którego zostanie przypisany `Hass Bridge`.
-
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img71.png)
-
-
-
-Aby edytować domeny lub wykluczyć dane encje, należy przejść do zakładki `Integracje`, odnaleźć "HASS Bridge:..." i wybrać `KONFIGURUJ`. W pierwszym oknie możemy skonfigurować tryb oraz edytować domeny:
-
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img73.png)
-
-W kolejnym oknie możemy wykluczyć wybrane encje:
-
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img74.png)
-
-Kolejne okno dla Urządzenia (Wyzwalacza) pozostawiamy puste i kończymy konfigurację.
-
-W sekcji `Powiadomienia` pojawi się kod QR, który należy zeskanować w aplikacji Home na iPhone/iPadzie, wybierając `Dodaj akcesorium`:
-
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img76.png)
-
-> W aplikacji Home pojawi się komunikat, że Akcesorium nie posiada certyfikatu. Wybieramy `DODAJ MIMO TO`.
-
-Po skonfigurowaniu akcesorium i urządzenia można przetestować działanie w aplikacji Home!
-
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img79.png)
-
-
-
-GOTOWE! Od teraz możesz sterować lampą bezpośrednio z aplikacji Home, oraz za pomocą komend głosowych Siri.
-
-
-
-> Specyfikacja protokołu akcesoriów HomeKit zezwala na maksymalnie 150 akcesoriów na mostek. Jeśli planujesz przekroczyć limit 150 urządzeń, konieczne jest stworzenie kolejnego mostku w taki sam sposób jak pierwszy.
-
-> Na niektórych urządzeniach z systemach iOS 12 lub starszym zgłaszano automatyczne rozłączanie parowania. Upewnij się, że urządzenie posiada system iOS 13 lub nowszy aby zagwarantować pewność połączenia.
-
-> Aby posiadać zdalny dostęp do urządzeń należy iPhone/iPad wykorzystać jako centrum akcesoriów domowych - aby funkcja działała, taki iPhone/iPad musi znajdować się stale w sieci lokalnej w domu. 
->
-> Aby włączyć tryb, należy otworzyć `Ustawienia` -> `Dom` i włączyć `Ten iPad to centrum akcesoriów`.
-
