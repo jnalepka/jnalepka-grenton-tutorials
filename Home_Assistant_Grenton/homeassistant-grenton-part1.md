@@ -695,7 +695,7 @@ Należy wyszukać i wybrać `HomeKit`.
 
 W pierwszej kolejności należy wybrać interesujące nas domeny zawierające wspierane encje. Na potrzeby tego tutorialu będzie to `Light`.
 
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img70.png)
+![](img70.png)
 
 
 
@@ -703,29 +703,29 @@ Następnie pojawi się komunikat: Aby dokończyć parowanie, postępuj wg instru
 
 W kolejnym oknie zanim klikniemy `ZAKOŃCZ`, opcjonalnie możemy przypisać obszar, do którego zostanie przypisany `Hass Bridge`.
 
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img71.png)
+![](img71.png)
 
 
 
 Aby edytować domeny lub wykluczyć dane encje, należy przejść do zakładki `Integracje`, odnaleźć "HASS Bridge:..." i wybrać `KONFIGURUJ`. W pierwszym oknie możemy skonfigurować tryb oraz edytować domeny:
 
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img73.png)
+![](img73.png)
 
 W kolejnym oknie możemy wykluczyć wybrane encje:
 
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img74.png)
+![](img74.png)
 
 Kolejne okno dla Urządzenia (Wyzwalacza) pozostawiamy puste i kończymy konfigurację.
 
 W sekcji `Powiadomienia` pojawi się kod QR, który należy zeskanować w aplikacji Home na iPhone/iPadzie, wybierając `Dodaj akcesorium`:
 
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img76.png)
+![](img76.png)
 
 > W aplikacji Home pojawi się komunikat, że Akcesorium nie posiada certyfikatu. Wybieramy `DODAJ MIMO TO`.
 
 Po skonfigurowaniu akcesorium i urządzenia można przetestować działanie w aplikacji Home!
 
-![](C:/Users/Jan/OneDrive - Grenton Sp. z o.o/Dokumenty/Grenton/Repozyrotia GIT/Repo Github/GrentonTutorials-main/HomeKit_Grenton/img79.png)
+![](img79.png)
 
 
 
