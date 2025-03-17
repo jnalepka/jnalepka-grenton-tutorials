@@ -27,31 +27,18 @@ W tym tutorialu przedstawiona została możliwość integracji z TaHoma Somfy po
      Naszym tokenem będzie "Password".
 
 
+##### 2. Wyciągnięcie deviceURL oraz jego dostępnych komend
 
-##### 2. Test połączenia
+W tym celu najlepiej użyć aplikacji Postman. 
 
-Aby przetestować poprawność połączenia należy przejść do strony https://somfy-developer.github.io/Somfy-TaHoma-Developer-Mode/#/Event/post_events_register.
+* `Postman URL`: https://gateway-2001-0001-1891.local:8443/enduser-mobile-web/1/enduserAPI/setup/devices
+* `Authorization Bareer`: token (Password)
+* `Method`: GET
 
-1. Wpisać PIN oraz port (domyślnie 8443).
-2. Wybrać ![](2.PNG) i w polu `bearerAuth (http, Bearer)` uzupełnić Value o wygenerowany wcześniej token "64e5dXXXXXXXXXXXXXXXX".
-3. Przejść do pozycji `GET /setup`,  wybrać `Try it out` a następnie `Execute`.
-
-
-
-Po otrzymaniu kodu 200 oraz prawidłowych informacji na temat urządzenia w odpowiedzi można przejść do konfiguracji w Grenton.
-
-
-
-> UWAGA! 
-> Jeśli podczas próby wywołania pojawi się komunikat `Failed to fetch. Possible Reasons: CORS, Network Failure, URL scheme must be "http" or "https" for CORS request.` można alternatywnie skorzystać z aplikacji Postman.
-
+Należy przeszukać odpowiedź pod kątem `deviceURL` urządzeń, oraz ich dostępnych metod, jak np. `setClosure` do ustawiania wartości procentowej żaluzji, lub `setOrientation` do ustawiania lameli.
 
 
 ##### 3. Wywołanie akcji na urządzeniu przez Gate Http
-
-W pierwszym kroku należy poznać `deviceURL` urządzenia, oraz jego komendy. W tym celu należy wywołać `GET /setup/devices` lub ścieżkę `/enduser-mobile-web/1/enduserAPI/setup/devices` w Postman. W otrzymanej odpowiedzi ukaże się lista wszystkich urządzeń wraz z komendami, jakie obsługują.
-
-
 
 Obiekt Http_Request należy skonfigurować w następujący sposób:
 
@@ -94,8 +81,6 @@ Po prawidłowo wykonanej komendzie TaHoma zwraca status 200 oraz odpowiedź:
 
 ##### 4. Odpytywanie o stan urządzenia
 
-Stan urządzenia można sprawdzić za pomocą `GET /setup/devices/{deviceURL}/states` lub ścieżkę `/enduser-mobile-web/1/enduserAPI/setup/devices/internal%3A%2F%2F20XX-XXXX-XXXX%2Fpod%2F0/states`  w Postman. 
-
 > UWAGA! 
 >
 > Znaki specjalne w ścieżce dla deviceURL powinny być zastąpione sekwencjami unikowymi, czyli np. znak `:` -> `%3A`, a znak `/ ` -> `%2F`.  Najlepiej skopiować gotowy string z tego miejsca:
@@ -107,7 +92,7 @@ Stan urządzenia można sprawdzić za pomocą `GET /setup/devices/{deviceURL}/st
 Obiekt Http_Request należy skonfigurować w następujący sposób:
 
 * `Host`: https://gateway-20XX-XXXX-XXXX.local:8443
-* `Path`: /enduser-mobile-web/1/enduserAPI/setup/devices/{deviceURL}/states`
+* `Path`: /enduser-mobile-web/1/enduserAPI/setup/devices/io%3A%2F%2F{pin}%2F{deviceId}/states`
 * `Method`: GET
 * `Request/Response Type`: JSON
 * `RequestHeaders`: Authorization: Bearer <your-token>
@@ -138,19 +123,23 @@ Odpowiedź jaką dostaniemy wygląda mniej więcej tak:
 
 
 
-Zatem przykładowy skrypt analizujący odpowiedź i sprawdzający wartość np. dla `internal:LightingLedPodModeState` wygląda następująco:
+Zatem przykładowy skrypt analizujący odpowiedź i sprawdzający wartość np. dla `core:ClosureState` wygląda następująco:
 
 ```
-local reqJson = GATE_HTTP->SomfyTaHoma_RequestDeviceCheck->ResponseBody
+local reqJson = GATE_HTTP->SomfyTaHoma_GetState_R3->ResponseBody
 
-if GATE_HTTP->SomfyTaHoma_RequestDeviceCheck->StatusCode == 200 then
+if GATE_HTTP->SomfyTaHoma_GetState_R3->StatusCode == 200 then
 	if reqJson ~= nil then
 		for _, entry in ipairs(reqJson) do
 		    local name = entry.name
 		    local value = entry.value
 		    
-		    if name == "internal:LightingLedPodModeState" then
-				print(value)
+		    if name == "core:ClosureState" then
+		    		local reversedValue = 100 - value
+				GATE_HTTP->tahoma_R3_position = reversedValue
+			elseif name == "core:SlateOrientationState" then
+		    		local calculatedLamel = -0.9 * value + 90
+				GATE_HTTP->tahoma_R3_lamel = calculatedLamel
 			end
 		end
 	end
