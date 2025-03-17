@@ -8,17 +8,15 @@ W tym tutorialu przedstawiona została możliwość integracji z TaHoma Somfy po
 
 1. Skonfiguruj urządzenie TaHoma Switch w aplikacji TaHoma by Somfy.
 
-2. Skopiuj PIN (20XX-XXXX-XXXX) znajdujący się na spodzie urządzenia. 
+2. Zaloguj się na koncie Somfy i włącz tryb programisty dla swojego urządzenia TaHoma Switch.
 
 3. Utwórz token dostępu:
 
-   * Zaloguj się na stronie https://dev.duboc.pro/overkiz.
+   * Zaloguj się na stronie https://dev.duboc.pro/overkiz swoim kontem Somfy.
 
      ![](1.PNG)
 
    * Wybierz "I would like to register local API".
-
-   * Przed wygenerowaniem tokenów wymagane jest włączenie trybu programisty poprzez stronę https://www.somfy.com/.
 
    * Na końcu wygenerowane zostaną następujące dane:
 
